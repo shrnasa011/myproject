@@ -31,13 +31,14 @@ ALLOWED_HOSTS = ["52.172.176.161"]
 # Application definition
 
 INSTALLED_APPS = [
-    'compendia.apps.CompendiaConfig',
+#   'compendia.apps.CompendiaConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'compendia',
 ]
 
 MIDDLEWARE = [
@@ -106,7 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
