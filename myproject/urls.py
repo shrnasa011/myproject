@@ -19,4 +19,5 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^compendia/', include('compendia.urls')),
+    url(r'^compendia/', include('login.urls')),
 ]
