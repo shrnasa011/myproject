@@ -96,7 +96,7 @@ class Prescription(models.Model):
     was_prescribed_recently.admin_order_field = 'pre_date'
     was_prescribed_recently.boolean = True
 
-class Prescribed_Medicines(models.Model):
+class PrescribedMedicine(models.Model):
 
     user = models.ForeignKey(Prescription, on_delete=models.CASCADE) 
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
