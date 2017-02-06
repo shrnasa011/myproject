@@ -31,7 +31,7 @@ ALLOWED_HOSTS = ["52.172.176.161"]
 # Application definition
 
 INSTALLED_APPS = [
-    'compendia.apps.CompendiaConfig',
+#   'compendia.apps.CompendiaConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

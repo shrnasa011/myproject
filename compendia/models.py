@@ -10,8 +10,8 @@ import datetime
 
 class Hospital(models.Model):
 
-	hospital = models.OneToOneField(User)
-	join_date = models.DateTimeField('Date of joining')
+    hospital = models.OneToOneField(User)
+    join_date = models.DateTimeField('Date of joining')
     # username, first_name, last_name, email, password, last_login
 
     def __str__(self):
@@ -20,9 +20,9 @@ class Hospital(models.Model):
 class Doctor(models.Model):
 
     doctor = models.OneToOneField(User)
-	join_date = models.DateTimeField('Date of joining')
-	contact = models.CharField(max_length=11)
-	room_no = models.CharField(max_length=50)
+    join_date = models.DateTimeField('Date of joining')
+    contact = models.CharField(max_length=11)
+    room_no = models.CharField(max_length=50)
 
     hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
     # username, first_name, last_name, email, password, last_login
@@ -34,16 +34,16 @@ class MyUser(models.Model):
 	
     user = models.OneToOneField(User)
     # username, first_name, last_name, email, password, last_login
-	join_date = models.DateTimeField('Date of joining')
-	contact = models.CharField(max_length=11)
-	address = models.CharField(max_length=50)
+    join_date = models.DateTimeField('Date of joining')
+    contact = models.CharField(max_length=11)
+    address = models.CharField(max_length=50)
 
     def __str__(self):
         return self.user.username
 
 class Appointment(models.Model):
 
-	hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
+    hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
     user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
 
@@ -95,3 +95,16 @@ class Prescription(models.Model):
     
     was_prescribed_recently.admin_order_field = 'pre_date'
     was_prescribed_recently.boolean = True
+
+class Prescribed_Medicines(models.Model):
+
+    user = models.ForeignKey(Prescription, on_delete=models.CASCADE) 
+    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
+    hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
+
+    pre_medicine = models.TextField(max_length=100)
+    pre_duration = models.IntegerField()
+    pre_freq = models.TextField(max_length=10)
+
+    def __str__(self):
+        return self.pre_medicine
