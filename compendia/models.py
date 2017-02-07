@@ -8,31 +8,31 @@ from django.contrib.auth.models import User
 
 import datetime
 
-class Hospital(models.Model):
+class Hospital(User):
 
-    hospital = models.OneToOneField(User)
-    join_date = models.DateTimeField('Date of joining')
+#    hospital = models.OneToOneField(User)
+    join_date_hosp = models.DateTimeField('Date of joining')
     # username, first_name, last_name, email, password, last_login
 
     def __str__(self):
         return self.hospital.username
 
-class Doctor(models.Model):
+class Doctor(Hospital):
 
-    doctor = models.OneToOneField(User)
-    join_date = models.DateTimeField('Date of joining')
+#    doctor = models.OneToOneField(User)
+    join_date_doc = models.DateTimeField('Date of joining')
     contact = models.CharField(max_length=11)
     room_no = models.CharField(max_length=50)
 
-    hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
+#    hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
     # username, first_name, last_name, email, password, last_login
 
     def __str__(self):
         return self.doctor.username
 
-class MyUser(models.Model):
+class MyUser(User):
 	
-    user = models.OneToOneField(User)
+#    user = models.OneToOneField(User)
     # username, first_name, last_name, email, password, last_login
     join_date = models.DateTimeField('Date of joining')
     contact = models.CharField(max_length=11)
@@ -43,9 +43,9 @@ class MyUser(models.Model):
 
 class Appointment(models.Model):
 
-    hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
-    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
-    user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
+    hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE, related_name="+")
+    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, related_name="+")
+    user = models.ForeignKey(MyUser, on_delete=models.CASCADE, related_name="+")
 
     ask_date = models.DateTimeField('Date when appointment is requested')
     acc_date = models.DateTimeField('Date when appointment request is accepted')
@@ -79,9 +79,9 @@ class Appointment(models.Model):
 
 class Prescription(models.Model):
 
-    hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
-    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
-    user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
+    hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE, related_name="+")
+    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, related_name="+")
+    user = models.ForeignKey(MyUser, on_delete=models.CASCADE, related_name="+")
 
     pre_date = models.DateTimeField('Date of prescription')
     pre_text = models.TextField(max_length=250)
@@ -98,9 +98,9 @@ class Prescription(models.Model):
 
 class PrescribedMedicine(models.Model):
 
-    user = models.ForeignKey(Prescription, on_delete=models.CASCADE) 
-    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
-    hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
+    hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE, related_name="+")
+    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, related_name="+")
+    user = models.ForeignKey(MyUser, on_delete=models.CASCADE, related_name="+")
 
     pre_medicine = models.TextField(max_length=100)
     pre_duration = models.IntegerField()
