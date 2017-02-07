@@ -11,7 +11,7 @@ import datetime
 class Hospital(User):
 
 #    hospital = models.OneToOneField(User)
-    join_date_hosp = models.DateTimeField('Date of joining')
+    join_date_hosp = models.DateTimeField('Date of joining', auto_now_add=True, blank=True)
     # username, first_name, last_name, email, password, last_login
 
     def __str__(self):
@@ -20,7 +20,7 @@ class Hospital(User):
 class Doctor(Hospital):
 
 #    doctor = models.OneToOneField(User)
-    join_date_doc = models.DateTimeField('Date of joining')
+    join_date_doc = models.DateTimeField('Date of joining', auto_now_add=True, blank=True)
     contact = models.CharField(max_length=11)
     room_no = models.CharField(max_length=50)
 
@@ -34,7 +34,7 @@ class MyUser(User):
 	
 #    user = models.OneToOneField(User)
     # username, first_name, last_name, email, password, last_login
-    join_date = models.DateTimeField('Date of joining')
+    join_date = models.DateTimeField('Date of joining', auto_now_add=True, blank=True)
     contact = models.CharField(max_length=11)
     address = models.CharField(max_length=50)
 
